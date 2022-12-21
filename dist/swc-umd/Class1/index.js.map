@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/Class1/index.ts"],"sourcesContent":["export class Class1 {\n  public go() {\n    return 1;\n  }\n}\n"],"names":["Class1","go"],"mappings":"AAAA;;;;;;;;;;;mCAAaA;;;mBAAAA;;;;;;;;IAAN,IAAA,AAAMA,uBAAV,AAAI;;iBAAMA;kCAAAA;;qBAAAA;QACX,OAAOC,EAEN,GAFD,SAAOA,KAAK;YACV,OAAO;QACT;eAHWD"}

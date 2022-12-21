@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/swcrc",
+  "module": {
+    "type": "umd",
+    "globals": {
+      "./dist/swc_bundle/index.js": "HeroJs"
+    }
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": true,
+      "dts": true,
+      "dynamicImport": true
+    },
+    "baseUrl": ".",
+    "paths": {
+      "/*": ["./src/*"]
+    }
+  },
+  "sourceMaps": true
+}

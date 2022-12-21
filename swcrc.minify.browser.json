@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json.schemastore.org/swcrc",
+  "module": {
+    "type": "umd"
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "ecmascript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "minify": {
+      "compress": true,
+      "mangle": true
+    }
+  },
+  "minify": true,
+  "sourceMaps": false
+}

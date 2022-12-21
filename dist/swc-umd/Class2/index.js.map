@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/Class2/index.ts"],"sourcesContent":["export class Class2 {\n  public start() {\n    return 1;\n  }\n}\n"],"names":["Class2","start"],"mappings":"AAAA;;;;;;;;;;;mCAAaA;;;mBAAAA;;;;;;;;IAAN,IAAA,AAAMA,uBAAV,AAAI;;iBAAMA;kCAAAA;;qBAAAA;QACX,OAAOC,KAEN,GAFD,SAAOA,QAAQ;YACb,OAAO;QACT;eAHWD"}
