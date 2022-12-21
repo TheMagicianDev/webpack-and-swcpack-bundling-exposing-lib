@@ -1,5 +1,9 @@
 # Wepback & Swcpack bundling and exposing a library for browser
 
+![webpack_swcpack_bundle_lib_demo](./imgs/webpack_swcpack_demo_banner.jpg)
+
+<hr>
+
 This whole repository is a Demo and playground and a check for how to use `webpack` and `Swcpack` to `bundle` a `library` for `browser`. And **compare the output of the two**. And **what is possible and not possible yet** with `swcpack`.
 
 It's part of `the Magician dev` learning series.
