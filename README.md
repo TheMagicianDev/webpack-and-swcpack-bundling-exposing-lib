@@ -8,6 +8,10 @@ This whole repository is a Demo and playground and a check for how to use `webpa
 
 It's part of `the Magician dev` learning series.
 
+keywords:<br>
+new gen transpilers, swc, swcpack, esbuild, webpack, vite, babel, bundling library, umd, swcpack problems, umd in swc, umd globals, webpack with swc, loader, benchmark, production, minification, compression, mangling. ...
+
+
 I'll be trying to resume a lot of elements bellow:
 
 ## Webpack
