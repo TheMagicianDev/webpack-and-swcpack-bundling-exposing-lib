@@ -1,65 +1,80 @@
 # Wepback & Swcpack bundling and exposing a library for browser
 
-This whole repository is a Demo and playground and a check for how to use webpack and Swcpack to bundle a library for browser. And compare the output of the two. And what is possible and not possible yet with swcpack.
+This whole repository is a Demo and playground and a check for how to use `webpack` and `Swcpack` to `bundle` a `library` for `browser`. And **compare the output of the two**. And **what is possible and not possible yet** with `swcpack`.
 
-It's part of the Magician dev learning series.
+It's part of `the Magician dev` learning series.
 
 I'll be trying to resume a lot of elements bellow:
 
 ## Webpack
 
-Webpack have been there for an eternity. And is both mature and it's echo-system. Webpack is or was the defacto for so long. Used by create-react-app, laravel-mix, vue-cli, nextjs, expo web (for react-native-web in expo), and the list is huge
+`Webpack` have been there for an eternity. And is both mature and it's echo-system. `Webpack` is or was the defacto for so long. Used by `create-react-app`, `laravel-mix`, `vue-cli`, `nextjs`, `expo web (for react-native-web in expo)`, and the list is huge (mostly who wasn't using webpack).
 
-New generation tools entered the Arena from so long. Mainly esbuild and swc.
+`New generation tools` entered the Arena from so long. Mainly `esbuild` and `swc`.
 
-Then tools that wrap and use those => the biggest that caught big traction is `vite`.
+Then `tools that wrap and use those` => the biggest that caught big traction is `vite`.
 
 ## Webpack vs esbuild vs vite vs swcpack
 
-vite is the new commer that combine esbuild and rollup. esbuild for pre-bundling and transpilation. vite is using esbuild. nextjs is using swc. Swc is more focused to be a drop replacement to webpack.
+`vite` is the new comer that combine `esbuild` and `rollup`. `esbuild` for pre-bundling and transpilation and development. `vite` is using `esbuild`. `nextjs` and `parcel` are using `swc`. `Swc` is more focused to be a drop replacement to `babel`.
 
-Why vite went with esbuild and not swc ? => [to be answered later]
-(I guess mainly because to keep one tool, and esbuild as does great with transpilation and minification (minification higher order faster then with terser and uglify [go vs js])). Also esbuild is focused into bundling and was out there long as such.
+Why vite went with `esbuild` and not `swc` ? => [to be answered later]
 
-swc as a babel drop replacement is the only one to look at. Adopted also by nextjs, and by expo for web and have loader for jest, webpack (to speed webpack, instead of using babel ...), ...
+(I guess mainly to keep one tool, and `esbuild` as does great with transpilation and minification (minification higher order faster then with terser and uglify [go vs js]), and as good relatively as `swc` [swc and esbuild are close, and in benchmark one would win over the other depending in the cases]). Also `esbuild` is focused into bundling and was out there long as such. While `swc` => transpilation first and replacing babel.
 
-Vite way faster then webpack =>
-  mainly due to usage of esbuild for pre-bundling.
+swc as a babel drop replacement is the only one to look at in the area. Adopted also by `nextjs`, and by `expo` for web and have loader for `jest`, `webpack` (to speed `webpack`, instead of using `babel` ...), ...
+
+`Vite` way faster then `webpack` =>
+  mainly due to usage of `esbuild` for pre-bundling. And for loading the development server before crawling all the files.
 
   - vite use rollup for bundling
   - that give stability and also flexibility ...
 
+While vite promote itself as fast and raise the development experience => Webpack can be as much as fast:
+
+The article below show some benchmarks:
+
+https://javascript.plainenglish.io/migrating-a-150k-loc-codebase-to-vite-and-esbuild-is-it-worthwhile-part-3-3-5a12894bac96
+
+https://gist.github.com/NoriSte/24ddd3585249f439f285a563bee26591#file-final-benchmark-md
+
+with `esbuild-loader` used for webpack. May be the result gonna be better with `swc-loader`.
+
+However the first load time in development, `vite` is king. But what about `webpack` also catching in that area? Doesn't seems too fetched to manage.
+
+`Vite` however for sure is catching a lot of traction and seems to be more developer friendly (DX).
+
 What about vite vs (webpack + swc) ?
 
-Swcpack (spack)
-  - swc come with an experimental bundler called swcpack, spack. And it's not ready yet for production. And it's in development.
-  - In this repo we tried to explore what can be done and what are the problems and how it does compare to webpack and what are the things in webpack that swcpack doesn't support. Or what actually it's supporting ....
+`Swcpack` (`spack`)
+  - swc come with an experimental bundler called `swcpack`, `spack`. And it's not ready yet for production. And it's in development.
+  - In this repo we tried to explore what can be done and what are the problems and how it does compare to `webpack` and what are the things in `webpack` that `swcpack` doesn't support. Or what actually it's supporting ....
 
 # Webpack and swcpack our demo and playground
 
 ## Web script vs web library
 
 ### Script
-Bundling something like react or any normal script that is intended to run in the browser and execute and run right away doing things. Like any script to handle the application functions and logic and dynamic aspect.
+Bundling something like `react` or any normal `script` that is intended to run in the `browser` and execute and run right away doing things. Like any `script` to handle the application functions and logic and dynamic aspect.
 
-That's bundling a script. In such case you go with just precising output. And you don't need to do any extra thing.
+That's bundling a `script`. In such case you go with just precising output. And you don't need to do any extra thing.
 
 In our Demo you would see that with the configurations bellow:
 
-Webpack:
+`Webpack`:
 - webpack.config.cjs
 - webpack.config.prod.cjs (prod)
 
-Swcpack:
+`Swcpack`:
 - spack.config.cjs
 - spack.config.prod.cjs (prod)
 - spack.config.prod.withMinification.cjs (using minification) [and problems with minification]
 - ... 
 
-swc:
+`swc`:
 - swcrc.minify.browser.json (using swc to minify and do umd after the bundling) [workaround]
 
-swcpack doesn't support library exposition. And so all configurations are going script like.
+`swcpack` doesn't support library exposition. And so all configurations are going script like.
 
 In the one going with `.lib` i tried some options to see if they can help.
 
@@ -69,51 +84,67 @@ I made a workaround. Check the workaround section bellow.
 
 ### Lib
 
-If we are to build a library, like jquery, Snapman.js, Lodash ...
+If we are to build a library, like `jquery`,` Snapman.js`, `Lodash` ...
 
 Then => We need to expose the entry module to the global scope
 
-In webpack this is done through adding a `library` prop to the output. And for more advanced use cases there is plugin for it.
+In `webpack` this is done through adding a `library` prop to the output. And for more advanced use cases there is plugin for it.
 
 In this repo we used `config.output.library`.
 
-> Swcpack have no equivalent at the moment.<br>
-> To Manage i opted for a workaround. Where i created a index.browser.ts to expose the variables manually. And basically run swcpack with the script bundling. (You can check the result in ) 
+> `Swcpack` have no equivalent at the moment.<br>
+> To Manage i opted for a workaround. Where i created a index.browser.ts to expose the variables manually. And basically run `swcpack` with the script bundling. (You can check the result in ) 
 
-webpack:
+`webpack`:
 - webpack.lib.config.cjs
 - webpack.lib.config.prod.cjs
 
-swcpack:
+`swcpack`:
 - spack.lib.config.cjs (tired some options elements)
 - spack.lib.browser.config.cjs (workaround)
 
 ## Bundling a script for web
 
-Webpack support it well. Check [webpack.config.cjs](./webpack.config.cjs) for example.
+`Webpack` support it well. Check [webpack.config.cjs](./webpack.config.cjs) for example.
 
 
-swcpack support it but (following my experiment. I may update that. If i find otherwise):
-- no Isolation using IIFE
-- Mangling doesn't work fully with swcpack (work great with swc). **Workaround**: swcpack bundling => output => swc => final output.
-- mode => as mentioned in documentation does nothing at the moment. => production can go by setting the minification options. And optimization. 
+`swcpack` support it but (following my experiment. I may update that. If i find otherwise):
+- no Isolation using `IIFE`
+- Mangling doesn't work fully with `swcpack` (work great with `swc`). **Workaround**: `swcpack` bundling => output => swc => final output.
+- `mode` => as mentioned in documentation does nothing at the moment. => production can go by setting the `minification` options. And `optimization`. 
 
 ## Bundling a library for web
 
-- Webpack have `output.library`<br>
+- `Webpack` have `output.library`<br>
   check [webpack.lib.config.cjs](./webpack.lib.config.cjs)
 
 
-- swcpack have no equivalent. And doesn't support it at all.
+- `swcpack` have no equivalent. And doesn't support it at all.
 
 Two possible workaround:
 
 ```
 swcpack => output => swc => minified umd output
 ```
-by transpilling to a umd module. That would bind the exports to the global window, globalThis, and this
+by transpilling to a `umd` module. That would bind the exports to the global `window`, `globalThis`, and `this`
 
 ## executing and bundling
+
+After
+
+```sh
+pnpm install
+```
+
+use 
+
+```sh
+npm run build:all
+```
+
+to build all.
+
+Otherwise:
 
 ```json
 "build:all": "npm-run-all --parallel webpack webpack:** swcpack swcpack:** swc:** --serial swcm:**",
@@ -161,22 +192,22 @@ https://github.com/swc-project/swc/discussions/3264
 
 Creating [src/index.browser.ts](./src/index.browser.ts)
 
-- Adding manually the variables. And import the original typescript exposing index.ts
-- swcpack will bundle it as a script. But this time the variables are added to the global scope
+- Adding manually the variables. And import the original typescript exposing `index.ts`
+- `swcpack` will bundle it as a `script`. But this time the variables are added to the global scope
 
-Problem with that: => swcpack is not wrapping anything in IIFE for isolation (All variables [classes] are polluting the global scope, and that's a serious problem). You can compare against the webpack version. That's something that we can add manually. But still. And i couldn't figure out any way to add that IIFE through swcpack.
+Problem with that: => `swcpack` is not wrapping anything in `IIFE` for isolation (All variables [classes] are polluting the global scope, and that's a serious problem). You can compare against the webpack version. That's something that we can add manually. But still. And i couldn't figure out any way to add that `IIFE` through `swcpack`.
 
 ### Workaround 2
 
-entry => swcpack => many files => no IIFE bundle output => swc => umd output
+`entry` => `swcpack` => many files => no `IIFE` bundle output => `swc` => `umd` output
 
-> SWC handle umd all well. But not swcpack. So one option is to combine them. (Not really an option but a workaround. As swcpack is experimental and work in progress. The development is going slow because the focus is more into swc and replacing babel first. As more of production solutions are using swc in place of babel (directly, for speeding webpack, ...))
+> `SWC` handle `umd` all well. But not `swcpack`. So one option is to combine them. (Not really an option but a workaround. As `swcpack` is experimental and work in progress. The development is going slow because the focus is more into `swc` and replacing `babel` first. As more of production solutions are using `swc` in place of `babel` (directly, for speeding `webpack`, ...))
 
 Problem:
 
-The umd factory does create the module in `global.fileName` and not the module name that you would want to have.
+The `umd` factory does create the module in `global.fileName` and not the module name that you would want to have.
 
-In my case it was an index.js file. So i got:
+In my case it was an `index.js` file. So i got:
 
 `global.index`
 
@@ -212,7 +243,7 @@ I tried different ways to try changing the name using the `swcrc` configuration.
 
 There is the `globals` variable.
 
-And in babel the flowing plugin is used: https://babeljs.io/docs/en/babel-plugin-transform-modules-umd
+And in `babel` the flowing plugin is used: https://babeljs.io/docs/en/babel-plugin-transform-modules-umd
 
 And supposed to be used as:
 
@@ -262,7 +293,7 @@ At first i tried:
 }
 ```
 
-Nothing work lol. At first i didn't know how globals were to be used. Then i search for babel umd.
+Nothing work lol. At first i didn't know how globals were to be used. Then i search for `babel` umd.
 
 ```ts
 "globals": {
