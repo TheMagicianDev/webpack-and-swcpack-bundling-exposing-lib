@@ -1,0 +1,9 @@
+{
+  "extends": "@themagician/tsconfig-base",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2015"],
+    "declaration": false,
+  },
+  "include": ["./src/"],
+  "exclude": ["**/*.test.{js,ts}"]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "webpack-swcpack-demo-compare",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:all": "npm-run-all --parallel webpack webpack:** swcpack swcpack:** swc:** --serial swcm:**",
+    "webpack": "webpack --config webpack.config.cjs",
+    "webpack:prod": "webpack --config webpack.config.prod.cjs",
+    "webpack:lib": "webpack --config webpack.lib.config.cjs",
+    "webpack:lib:prod": "webpack --config webpack.lib.config.prod.cjs",
+    "swcpack": "spack --config=$PWD/spack.config.cjs",
+    "swcpack:prod": "spack --config=$PWD\/spack.config.prod.cjs",
+    "swcpack:prod:minify": "spack --config=$PWD/spack.config.prod.withMinification.cjs",
+    "swcm:umd:notMinified": "swc ./dist/swc_bundle/index.js --out-file dist/swc_bundle/index.swc.umd.js --config-file swcrc.umd.json",
+    "swcm:prod:minify:minified_bundle": "swc dist/prod/swc_bundle_minify/index.js --out-file dist/prod/swc_bundle_minify/index.swcMinify.js --config-file swcrc.minify.browser.json",
+    "swcpack:lib": "spack --config=$PWD/spack.lib.config.cjs",
+    "swcpack:lib:browser": "spack --config=$PWD/spack.lib.browser.config.cjs",
+    "swc:build:umd": "swc src --out-dir dist/swc-umd --config-file swcrc.umd.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.23",
+    "@themagician/tsconfig-base": "^1.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.0",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
