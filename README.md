@@ -362,6 +362,8 @@ Remember that for the time combining webpack with `swc-loader` is still a good o
 
 # Swcpack
 
+`Swpack` is far away from being any close to production ready.
+
 ## Things that i tried for umd and building for lib
 
 ### module
@@ -559,6 +561,30 @@ minify: {
 ```
 
 # SWC problems
+
+## cannot access a scoped thread local variable without calling
+
+`spack` with `@swc/core v1.2.46+` and above seems to fail with panic in many cases. It didn't work in my `snapman.js` library. issue: https://github.com/swc-project/swc/issues/6133
+
+You can reproduce the problem above by making a call to:
+
+```js
+export { default as clone } from 'lodash.clonedeep';
+```
+
+Error:
+
+```ts
+thread '<unnamed>' panicked at 'cannot access a scoped thread local variable without calling `set` first', /Users/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/scoped-tls-1.0.1/src/lib.rs:168:9
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+node:internal/process/promises:289
+            triggerUncaughtException(err, true /* fromPromise */);
+            ^
+
+[Error: panic detected] { code: 'GenericFailure' }
+
+Node.js v19.3.0
+```
 
 ## Disabling source map not working
 
